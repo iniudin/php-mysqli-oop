@@ -17,11 +17,16 @@ if ($mysqli->connect_errno) {
 
 // Menambahkan data ke database
 // query untuk menambahkan data murid
-$sql = "INSERT INTO murid (nama, alamat) VALUES ('ucup', 'pacet', 'aa')";
-
+$sql = "INSERT INTO murid (nama, alamat) VALUES ('udin', 'pacet');";
+$sql .= "INSERT INTO murid (nama, alamat) VALUES ('adit', 'mojo');";
+$sql .= "INSERT INTO murid (nama, alamat) VALUES ('apep', 'gondang')";
 // menjalankan query
 // dan cek apakah query berhasil dijalankan / tidak?
-if ( $mysqli->query($sql) === TRUE ) {
+
+// $mysqli->query($sql)
+
+// $mysqli->multi_query($sql)
+if ( $mysqli->multi_query($sql) === TRUE ) {
     echo "Berhasil menambahkan data";
 } else {
     echo "Gagal menambahkan data.</br>Error: " . $mysqli->error;
