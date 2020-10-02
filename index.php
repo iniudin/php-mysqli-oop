@@ -14,23 +14,21 @@ if ($mysqli->connect_errno) {
     // jika gagal tampilkan error
     echo "Gagal membuat koneksi ke Database" . $mysqli->connect_error;
 }
-
-// Menambahkan data ke database
-// query untuk menambahkan data murid
-$sql = "INSERT INTO murid (nama, alamat) VALUES ('udin', 'pacet');";
-$sql .= "INSERT INTO murid (nama, alamat) VALUES ('adit', 'mojo');";
-$sql .= "INSERT INTO murid (nama, alamat) VALUES ('apep', 'gondang')";
-// menjalankan query
-// dan cek apakah query berhasil dijalankan / tidak?
+// $sql = "INSERT INTO murid (nama, alamat) VALUES ('udin', 'pacet');";
+// $sql .= "INSERT INTO murid (nama, alamat) VALUES ('apep', 'gondang')";
 
 // $mysqli->query($sql)
-
 // $mysqli->multi_query($sql)
-if ( $mysqli->multi_query($sql) === TRUE ) {
-    echo "Berhasil menambahkan data";
-} else {
-    echo "Gagal menambahkan data.</br>Error: " . $mysqli->error;
-}
+
+// prepare statement
+$stmt_insert = $mysqli->prepare('INSERT INTO murid (nama, alamat) VALUES (?, ?)');
+$stmt_insert->bind_param('ss', $nama, $alamat);
+
+// mengisi nilai parameter dan menjalankannya
+$nama = "brody";
+$alamat = "land of dawn";
+
+$stmt_insert->execute();
 
 // menutup koneksi database
 $mysqli->close();
