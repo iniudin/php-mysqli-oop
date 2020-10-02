@@ -17,13 +17,14 @@ if ($mysqli->connect_errno) {
 
 // Menambahkan data ke database
 // query untuk menambahkan data murid
-$sql = "INSERT INTO murid (nama, alamat) VALUES ('ucup', 'pacet')";
+$sql = "INSERT INTO murid (nama, alamat) VALUES ('ucup', 'pacet', 'aa')";
 
 // menjalankan query
+// dan cek apakah query berhasil dijalankan / tidak?
 if ( $mysqli->query($sql) === TRUE ) {
     echo "Berhasil menambahkan data";
 } else {
-    echo "Gagal menambahkan data";
+    echo "Gagal menambahkan data.</br>Error: " . $mysqli->error;
 }
 
 // menutup koneksi database
