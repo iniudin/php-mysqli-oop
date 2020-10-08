@@ -15,13 +15,15 @@ if ($mysqli->connect_errno) {
     echo "Gagal membuat koneksi ke Database" . $mysqli->connect_error;
 }
 
-$query = "SELECT m.nama, m.alamat FROM murid as m";
-$result = $mysqli->query($query);
+$alamat = "land of dawn";
+$murid = $mysqli->prepare('SELECT nama, alamat FROM murid WHERE alamat=?');
+$murid->bind_param('s', $alamat);
+$murid->execute();
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo $row['nama'] . ', ' . $row['alamat'] . '</br>';
-    }
+$murid->bind_result($result_nama, $result_alamat);
+
+while ($murid->fetch()) {
+    echo $result_nama . " " . $result_alamat . "</br>";
 }
 
 // menutup koneksi database
